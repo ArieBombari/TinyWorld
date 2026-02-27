@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c15fa271d1964e3895b51489770dc58, type: 3}
+  m_Name: DefaultAudioSettings
+  m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: 7fec0897008b54d0198e076cdcfe99c5, type: 3}
+  musicVolume: 0.5
+  oceanWaves: {fileID: 8300000, guid: 597f148d66b08475caa07918a939f330, type: 3}
+  oceanVolume: 0.3
+  waterfallSound: {fileID: 8300000, guid: 569275a60c8e1467da1dd686fb4e190e, type: 3}
+  waterfallVolume: 0.4
+  birdsChirping: {fileID: 8300000, guid: 96c0e7c6f60be4d938238ca1ed79c637, type: 3}
+  birdsVolume: 0.2
+  windSound: {fileID: 0}
+  windVolume: 0.15
+  footstepSound: {fileID: 8300000, guid: 2cc132bf82d7c41a585f20aa7693a134, type: 3}
+  footstepVolume: 0.5
+  jumpSound: {fileID: 8300000, guid: 2cc132bf82d7c41a585f20aa7693a134, type: 3}
+  jumpVolume: 0.4
+  landSound: {fileID: 8300000, guid: a55f6e1a2eba04846aeee5c3abfa5c7e, type: 3}
+  landVolume: 0.3
+  featherCollectSound: {fileID: 8300000, guid: 0f387e72aade14c22b103c42a557bad2, type: 3}
+  featherCollectVolume: 0.6
+  climbSound: {fileID: 8300000, guid: 57cd7d1ab23924c259dc686742c00884, type: 3}
+  climbVolume: 0.3
+  glideSound: {fileID: 8300000, guid: 57cd7d1ab23924c259dc686742c00884, type: 3}
+  glideVolume: 0.25

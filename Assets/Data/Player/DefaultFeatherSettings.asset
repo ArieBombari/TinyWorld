@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c33bfc7d0c440249a92ba1f564b105, type: 3}
+  m_Name: DefaultFeatherSettings
+  m_EditorClassIdentifier: 
+  maxFeathersInWorld: 15
+  rechargeDelay: 0.1
+  rechargeRate: 0.5
+  unlimitedFeathers: 0
+  instantRecharge: 0

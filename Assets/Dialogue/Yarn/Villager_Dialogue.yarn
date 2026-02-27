@@ -1,0 +1,43 @@
+﻿title: Villager_Start
+---
+Villager: Hey there! Nice day
+Player: Yeah! What are you up to
+Villager: Not much
+Player: Nice
+Villager: Right?
+===
+
+title: Fisherman_Start
+---
+Fisherman: Hey there, traveler! Beautiful day for fishing, isn't it?
+Player: Yeah! Have you caught anything?
+Fisherman: Not yet, but I saw something strange in the deep water...
+Fisherman: A golden shimmer, like treasure. But it's too deep to reach.
+Fisherman: Head east from here. Look for the rock formation shaped like a bird.
+Player: Thanks! I'll look for it.
+===
+
+title: Gardener_Start
+---
+Gardener: Oh! Hello! I'm so glad someone's here.
+Player: Hi! This garden is beautiful!
+Gardener: Thank you! I've been tending it for years.
+Gardener: But lately, the flowers on the north side won't bloom.
+Gardener: I think they need something special... maybe water from the sacred spring?
+Player: Sacred spring? Where's that?
+Gardener: High up on the cliff. You'll need to climb to reach it.
+Gardener: Be careful up there! And bring me back some spring water if you can.
+===
+
+title: Elder_Start
+---
+Elder: Ah, a visitor. It's been so long since anyone came to this island.
+Player: What is this place?
+Elder: This island holds many secrets, young one.
+Elder: Long ago, it was a sanctuary for birds of all kinds.
+Elder: But one by one, they left. Now only a few remain.
+Player: Why did they leave?
+Elder: The island's magic is fading. The feathers you collect... they're remnants of that magic.
+Elder: Gather them all, and perhaps... perhaps the birds will return.
+Elder: Look for the highest peak. That's where the last great bird was seen.
+===
