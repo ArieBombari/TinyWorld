@@ -7,7 +7,7 @@ public class GlidingController : MonoBehaviour
     [SerializeField] private PlayerMovementData movementData;
     
     [Header("Visual")]
-    [SerializeField] private GameObject glideSquare; // NEW: Drag your glider object here
+    [SerializeField] private GameObject glideSquare;
     
     private PlayerInputActions playerInput;
     private bool isGliding = false;
@@ -23,8 +23,18 @@ public class GlidingController : MonoBehaviour
     private float jumpButtonHeldTime = 0f;
     private bool wasJumpPressed = false;
     
-    // Helper properties to get values from movementData
-    private float GlideSpeed => movementData != null ? movementData.glideSpeed : 8f;
+    // Helper properties
+    private float GlideSpeed
+    {
+        get
+        {
+            float baseSpeed = movementData != null ? movementData.glideSpeed : 8f;
+            // Apply Wings multiplier if player has Wings in inventory
+            if (ItemEffectManager.Instance != null)
+                baseSpeed *= ItemEffectManager.Instance.GlideMultiplier;
+            return baseSpeed;
+        }
+    }
     private float GlideFallSpeed => movementData != null ? movementData.glideFallSpeed : 2f;
     private float GlideRotationSpeed => movementData != null ? movementData.glideRotationSpeed : 5f;
     private float MaxTiltAngle => movementData != null ? movementData.maxTiltAngle : 30f;
@@ -44,7 +54,6 @@ public class GlidingController : MonoBehaviour
             playerModel = transform.GetChild(0);
         }
         
-        // NEW: Hide glide square initially
         if (glideSquare != null)
         {
             glideSquare.SetActive(false);
@@ -56,25 +65,17 @@ public class GlidingController : MonoBehaviour
     
     void Update()
     {
-        // Check if we can glide
         bool canGlide = true;
         
         if (climbingController != null && climbingController.IsClimbing())
-        {
             canGlide = false;
-        }
         
         if (swimmingController != null && swimmingController.IsInWater())
-        {
             canGlide = false;
-        }
         
         if (controller.isGrounded)
-        {
             canGlide = false;
-        }
         
-        // Track how long jump button is held
         bool jumpPressed = playerInput.Player.Jump.IsPressed();
         
         if (jumpPressed)
@@ -95,7 +96,6 @@ public class GlidingController : MonoBehaviour
             jumpButtonHeldTime = 0f;
         }
         
-        // Only start gliding if button held long enough AND can glide
         bool shouldGlide = jumpPressed && 
                           jumpButtonHeldTime >= MinHoldTimeToGlide && 
                           canGlide;
@@ -103,9 +103,7 @@ public class GlidingController : MonoBehaviour
         if (shouldGlide)
         {
             if (!isGliding)
-            {
                 StartGliding();
-            }
             HandleGliding();
         }
         else if (isGliding)
@@ -132,13 +130,10 @@ public class GlidingController : MonoBehaviour
         {
             currentGlideDirection = Vector3.Slerp(currentGlideDirection, targetDirection, GlideRotationSpeed * Time.deltaTime);
             
-            // Calculate tilt based on turn direction
             Vector3 playerRight = transform.right;
             float turnDirection = Vector3.Dot(targetDirection - currentGlideDirection, playerRight);
             float targetTilt = turnDirection * MaxTiltAngle * 10f;
             targetTilt = Mathf.Clamp(targetTilt, -MaxTiltAngle, MaxTiltAngle);
-            
-            // CHANGED: Negate to flip tilt direction
             targetTilt = -targetTilt;
             
             currentTilt = Mathf.Lerp(currentTilt, targetTilt, TiltSpeed * Time.deltaTime);
@@ -173,13 +168,10 @@ public class GlidingController : MonoBehaviour
         currentGlideDirection.y = 0f;
         currentGlideDirection.Normalize();
         
-        // NEW: Show glide square
         if (glideSquare != null)
-        {
             glideSquare.SetActive(true);
-        }
         
-        Debug.Log("Started gliding!");
+        Debug.Log("Started gliding!" + (ItemEffectManager.Instance != null && ItemEffectManager.Instance.HasWings ? " (Wings boost active!)" : ""));
     }
     
     void StopGliding()
@@ -188,15 +180,10 @@ public class GlidingController : MonoBehaviour
         
         currentTilt = 0f;
         if (playerModel != null)
-        {
             playerModel.localRotation = Quaternion.identity;
-        }
         
-        // NEW: Hide glide square
         if (glideSquare != null)
-        {
             glideSquare.SetActive(false);
-        }
         
         Debug.Log("Stopped gliding!");
     }
@@ -209,8 +196,6 @@ public class GlidingController : MonoBehaviour
     void OnDestroy()
     {
         if (playerInput != null)
-        {
             playerInput.Player.Disable();
-        }
     }
 }

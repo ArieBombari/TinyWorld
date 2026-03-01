@@ -68,16 +68,24 @@ public class NPC : MonoBehaviour
         
         float distance = Vector3.Distance(transform.position, player.position);
         
-        // Smooth rotation when nearby (before dialogue)
         if (distance <= interactionRange && !dialogueRunner.IsDialogueRunning)
         {
             FacePlayer();
-            
-            if (rotatePlayerWhenNearby && playerController != null && playerController.enabled)
+    
+            // Don't rotate player if gliding, climbing, or swimming
+            GlidingController gliding = player.GetComponent<GlidingController>();
+            ClimbingController climbing = player.GetComponent<ClimbingController>();
+            SwimmingController swimming = player.GetComponent<SwimmingController>();
+    
+            bool playerBusy = (gliding != null && gliding.IsGliding()) ||
+                      (climbing != null && climbing.IsClimbing()) ||
+                      (swimming != null && swimming.IsSwimming());
+    
+            if (rotatePlayerWhenNearby && playerController != null && playerController.enabled && !playerBusy)
             {
-                MakePlayerFaceNPC();
+            MakePlayerFaceNPC();
             }
-        }
+    }
         
         // E to start dialogue
         if (distance <= interactionRange && !dialogueRunner.IsDialogueRunning)
@@ -138,33 +146,22 @@ public class NPC : MonoBehaviour
     
     void OnDialogueStart()
     {
-        Debug.Log($"[NPC {npcName}] Dialogue started");
-        
-        // SIMPLE: Just disable player movement
-        // The smooth rotation has already positioned them correctly!
-        if (playerController != null)
-        {
-            playerController.enabled = false;
-        }
-        
-        // NO rotation snap - trust the smooth rotation from Update()
+    Debug.Log($"[NPC {npcName}] Dialogue started");
+    
+    if (playerController != null)
+        playerController.enabled = false;
     }
     
     void OnDialogueEnd()
     {
-        Debug.Log($"[NPC {npcName}] Dialogue ended");
-        
-        // Re-enable player movement
-        if (playerController != null)
-        {
-            playerController.enabled = true;
-        }
-        
-        // Hide bubble
-        if (speechBubble != null)
-        {
-            speechBubble.Hide();
-        }
+    // Always re-enable player on any dialogue end (safe)
+    Debug.Log($"[NPC {npcName}] Dialogue ended");
+    
+    if (playerController != null)
+        playerController.enabled = true;
+    
+    if (speechBubble != null)
+        speechBubble.Hide();
     }
     
     public SpeechBubble GetSpeechBubble()

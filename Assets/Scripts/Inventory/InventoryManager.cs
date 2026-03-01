@@ -47,7 +47,7 @@ namespace Inventory
         private void Awake()
         {
             if (inventoryData != null)
-                inventoryData.EnsureSlots();
+            inventoryData.Initialize();
 
             if (playerMovementOverride != null)
                 playerMovementScript = playerMovementOverride;

@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16af39d51d61947558515e5cd3b3e5a4, type: 3}
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
-  slotCount: 7
+  slotCount: 6
   slots:
-  - item: {fileID: 11400000, guid: b8fbd14595bb143f190104d7f0de50fb, type: 2}
-    count: 1
   - item: {fileID: 0}
     count: 0
   - item: {fileID: 0}
@@ -28,4 +26,4 @@ MonoBehaviour:
     count: 0
   - item: {fileID: 0}
     count: 0
-  activeSlotIndex: 1
+  activeSlotIndex: 0

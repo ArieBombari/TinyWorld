@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class SpeechBubble : MonoBehaviour
@@ -18,20 +19,39 @@ public class SpeechBubble : MonoBehaviour
     
     void Awake()
     {
-        if (canvas == null)
-        {
-            canvas = GetComponent<Canvas>();
-        }
-        
-        mainCamera = Camera.main;
-        
-        // Simple World Space setup
-        if (canvas != null)
-        {
-            canvas.renderMode = RenderMode.WorldSpace;
-        }
-        
-        gameObject.SetActive(false);
+    if (canvas == null)
+    {
+        canvas = GetComponent<Canvas>();
+    }
+    
+    mainCamera = Camera.main;
+    
+    if (canvas != null)
+    {
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = 100;
+    }
+    
+    // Force all UI elements to render on top of 3D geometry
+    SetAlwaysOnTop();
+    
+    gameObject.SetActive(false);
+    }
+
+    void SetAlwaysOnTop()
+    {
+    foreach (var graphic in GetComponentsInChildren<UnityEngine.UI.Graphic>(true))
+    {
+        Material mat = new Material(graphic.materialForRendering);
+        mat.SetInt("unity_GUIZTestMode", (int)UnityEngine.Rendering.CompareFunction.Always);
+        graphic.material = mat;
+    }
+    
+    foreach (var tmp in GetComponentsInChildren<TMPro.TextMeshProUGUI>(true))
+    {
+        tmp.materialForRendering.SetInt("unity_GUIZTestMode", (int)UnityEngine.Rendering.CompareFunction.Always);
+    }
     }
     
     void LateUpdate()
