@@ -102,8 +102,8 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _LanternActive: 0
-    - _LanternRadius: 0.1
-    - _LanternSoftness: 0.05
+    - _LanternRadius: 0.15
+    - _LanternSoftness: 0.1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
